@@ -139,6 +139,8 @@ namespace Hearthstone_Deck_Tracker
 			}
 		}
 
+		public static int CurrentSeason => (DateTime.Now.Year - 2014) * 12 - 3 + DateTime.Now.Month;
+
 		// A bug in the SerializableVersion.ToString() method causes this to load Version.xml incorrectly.
 		// The build and revision numbers are swapped (i.e. a Revision of 21 in Version.xml loads to Version.Build == 21).
 		public static Version GetCurrentVersion()
@@ -662,12 +664,14 @@ namespace Hearthstone_Deck_Tracker
 			return color;
 		}
 
-		public static MetroWindow GetParentWindow(DependencyObject current)
+		public static MetroWindow GetParentWindow(DependencyObject current) => GetVisualParent<MetroWindow>(current);
+
+		public static T GetVisualParent<T>(DependencyObject current)
 		{
 			var parent = VisualTreeHelper.GetParent(current);
-			while(parent != null && !(parent is MetroWindow))
+			while(parent != null && !(parent is T))
 				parent = VisualTreeHelper.GetParent(parent);
-			return (MetroWindow)parent;
+			return (T)(object)parent;
 		}
 
 		public static bool IsWindows10()

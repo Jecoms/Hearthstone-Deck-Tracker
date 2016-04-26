@@ -127,6 +127,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="API\ActionList.cs" />
+    <Compile Include="API\AttackInfo.cs" />
     <Compile Include="API\DeckManagerEvents.cs" />
     <Compile Include="API\Core.cs" />
     <Compile Include="API\GameEvents.cs" />
@@ -176,6 +177,9 @@
       <DependentUpon>ElementSorterItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\DeckPicker\MarginConverter.cs" />
+    <Compile Include="Controls\Stats\ArenaFilters.xaml.cs">
+      <DependentUpon>ArenaFilters.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Stats\ArenaRewards.xaml.cs">
       <DependentUpon>ArenaRewards.xaml</DependentUpon>
     </Compile>
@@ -212,10 +216,34 @@
     <Compile Include="Controls\Stats\Arena\Charts\ChartWinsByClass.xaml.cs">
       <DependentUpon>ChartWinsByClass.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Stats\ConstructedFilters.xaml.cs">
+      <DependentUpon>ConstructedFilters.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Stats\Constructed\ConstructedCharts.xaml.cs">
+      <DependentUpon>ConstructedCharts.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Stats\Constructed\ConstructedDeckDetailsTable.xaml.cs">
+      <DependentUpon>ConstructedDeckDetailsTable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Stats\Constructed\ConstructedDeckHighlights.xaml.cs">
+      <DependentUpon>ConstructedDeckHighlights.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Stats\Constructed\ConstructedGames.xaml.cs">
+      <DependentUpon>ConstructedGames.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Stats\Constructed\ConstructedMatchupTable.xaml.cs">
+      <DependentUpon>ConstructedMatchupTable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Stats\Constructed\ConstructedSummary.xaml.cs">
+      <DependentUpon>ConstructedSummary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Stats\Converters\CustomTimeframeSeasonVisibilityConverter.cs" />
     <Compile Include="Controls\Stats\Converters\CustomTimeframeVisibilityConverter.cs" />
+    <Compile Include="Controls\Stats\Converters\InverseBooleanConverter.cs" />
     <Compile Include="Controls\Stats\Converters\IsNullConverter.cs" />
     <Compile Include="Controls\Stats\Converters\NotNullToBooleanConverter.cs" />
     <Compile Include="Controls\Stats\Converters\ToUpperValueConverter.cs" />
+    <Compile Include="Controls\Stats\HeroClassStatsFilterWrapper.cs" />
     <Compile Include="Controls\Stats\Overview.xaml.cs">
       <DependentUpon>Overview.xaml</DependentUpon>
     </Compile>
@@ -226,11 +254,11 @@
     <Compile Include="Enums\ClassColorScheme.cs" />
     <Compile Include="Enums\DeckLayout.cs" />
     <Compile Include="Enums\EnumValuesExtension.cs" />
+    <Compile Include="Enums\Format.cs" />
     <Compile Include="Enums\Hearthstone\TAG_CLASS.cs" />
     <Compile Include="Enums\IconStyle.cs" />
     <Compile Include="Enums\LastPlayedDateFormat.cs" />
     <Compile Include="Enums\LoginType.cs" />
-    <Compile Include="Enums\Card\Rarity.cs" />
     <Compile Include="Enums\MetroTheme.cs" />
     <Compile Include="Errors\ErrorItem.xaml.cs">
       <DependentUpon>ErrorItem.xaml</DependentUpon>
@@ -283,6 +311,12 @@
     <Compile Include="DeckManager.cs" />
     <Compile Include="Hearthstone\DeckState.cs" />
     <Compile Include="Hearthstone\PredictedCard.cs" />
+    <Compile Include="LogReader\Handlers\FullScreenFxHandler.cs" />
+    <Compile Include="Stats\CompiledStats\ConstructedDeckDetails.cs" />
+    <Compile Include="Stats\CompiledStats\ConstructedDeckStats.cs" />
+    <Compile Include="Stats\CompiledStats\ConstructedMatchup.cs" />
+    <Compile Include="Stats\TrackedCard.cs" />
+    <Compile Include="Utility\Extensions\GroupingExtensions.cs" />
     <Compile Include="Utility\Extensions\RectExtensions.cs" />
     <Compile Include="Utility\Themes\CardBarImageBuilder.cs" />
     <Compile Include="Hearthstone\GameTime.cs" />
@@ -296,7 +330,9 @@
     <Compile Include="Stats\CompiledStats\ArenaRun.cs" />
     <Compile Include="Stats\CompiledStats\ChartStats.cs" />
     <Compile Include="Stats\CompiledStats\ClassStats.cs" />
+    <Compile Include="Stats\CompiledStats\ConstructedStats.cs" />
     <Compile Include="Stats\CompiledStats\MatchupStats.cs" />
+    <Compile Include="Stats\GameStatsHelper.cs" />
     <Compile Include="Utility\AttachedFormattedString.cs" />
     <Compile Include="Utility\BatteryMonitor.cs" />
     <Compile Include="Utility\BoardDamage\BoardCard.cs" />
@@ -327,6 +363,7 @@
     <Compile Include="Utility\Extensions\TaskExtensions.cs" />
     <Compile Include="Utility\Extensions\VersionExtensions.cs" />
     <Compile Include="Utility\Extensions\ZipArchiveExtensions.cs" />
+    <Compile Include="Utility\GitHub.cs" />
     <Compile Include="Utility\LogConfig\LogConfigConstants.cs" />
     <Compile Include="Utility\LogConfig\LogConfigItem.cs" />
     <Compile Include="Utility\LogConfig\LogConfig.cs" />
@@ -336,7 +373,6 @@
     <Compile Include="Utility\Logging\Log.cs" />
     <Compile Include="Utility\Logging\LogType.cs" />
     <Compile Include="Utility\MouseActions.cs" />
-    <Compile Include="FlyoutControls\GameDetailItem.cs" />
     <Compile Include="FlyoutControls\DeckPanel.xaml.cs">
       <DependentUpon>DeckPanel.xaml</DependentUpon>
     </Compile>
@@ -467,12 +503,6 @@
     <Compile Include="Utility\Updater.cs" />
     <Compile Include="Windows\AddGameDialog.xaml.cs">
       <DependentUpon>AddGameDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="FlyoutControls\DeckStatsControl.xaml.cs">
-      <DependentUpon>DeckStatsControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="FlyoutControls\GameDetails.xaml.cs">
-      <DependentUpon>GameDetails.xaml</DependentUpon>
     </Compile>
     <Compile Include="FlyoutControls\Help.xaml.cs">
       <DependentUpon>Help.xaml</DependentUpon>
@@ -626,9 +656,6 @@
     <Compile Include="Windows\StatsWindow.xaml.cs">
       <DependentUpon>StatsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\StatsWindow_New.xaml.cs">
-      <DependentUpon>StatsWindow_New.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\TimerWindow.xaml.cs">
       <DependentUpon>TimerWindow.xaml</DependentUpon>
     </Compile>
@@ -693,6 +720,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Stats\ArenaFilters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Stats\ArenaRewards.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -738,6 +769,34 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\Stats\Arena\Charts\ChartWinsByClass.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Stats\ConstructedFilters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Stats\Constructed\ConstructedCharts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Stats\Constructed\ConstructedDeckDetailsTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Stats\Constructed\ConstructedDeckHighlights.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Stats\Constructed\ConstructedGames.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Stats\Constructed\ConstructedMatchupTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Stats\Constructed\ConstructedSummary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -885,14 +944,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FlyoutControls\DeckStatsControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="FlyoutControls\GameDetails.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="FlyoutControls\Help.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -978,10 +1029,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\StatsWindow_New.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Windows\TimerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1007,15 +1054,6 @@
     <Resource Include="Resources\Chunkfive.otf" />
     <Resource Include="HearthStats\Resources\hearthstats_logo.png" />
     <Resource Include="Resources\SplashScreen.png" />
-    <Content Include="HDTHelper.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HDTUninstaller.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HDTUpdate.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Resource Include="Images\card-icon-coin.png" />
     <Resource Include="Images\card-icon-created.png" />
     <Resource Include="Images\card-icon-keep.png" />
@@ -1183,9 +1221,6 @@
     xcopy /Y "HearthstoneDeckTracker.exe.config" "..\Hearthstone Deck Tracker"
     ren "..\Hearthstone Deck Tracker\HearthstoneDeckTracker.exe" "Hearthstone Deck Tracker.exe"
     ren "..\Hearthstone Deck Tracker\HearthstoneDeckTracker.exe.config" "Hearthstone Deck Tracker.exe.config"
-    xcopy /Y "HDTHelper.exe" "..\Hearthstone Deck Tracker"
-    xcopy /Y "HDTUpdate.exe" "..\Hearthstone Deck Tracker"
-    xcopy /Y "HDTUninstaller.exe" "..\Hearthstone Deck Tracker"
     xcopy /Y "AForge.dll" "..\Hearthstone Deck Tracker"
     xcopy /Y "AForge.Math.dll" "..\Hearthstone Deck Tracker"
     xcopy /Y "AForge.Imaging.dll" "..\Hearthstone Deck Tracker"
@@ -1196,7 +1231,10 @@
     xcopy /Y "MahApps.Metro.dll" "..\Hearthstone Deck Tracker"
     xcopy /Y "Newtonsoft.Json.dll" "..\Hearthstone Deck Tracker"
     xcopy /Y "System.Windows.Interactivity.dll" "..\Hearthstone Deck Tracker"
-    xcopy /Y "Version.xml" "..\Hearthstone Deck Tracker" )</PostBuildEvent>
+    xcopy /Y "Version.xml" "..\Hearthstone Deck Tracker"
+    xcopy /Y "..\..\..\HDTUpdate\bin\Release\HDTUpdate.exe" "..\Hearthstone Deck Tracker"
+    xcopy /Y "..\..\..\HDTHelper\bin\Release\HDTHelper.exe" "..\Hearthstone Deck Tracker"
+    xcopy /Y "..\..\..\HDTUninstaller\bin\Release\HDTUninstaller.exe" "..\Hearthstone Deck Tracker" )</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>mkdir "$(TargetDir)\Images\Bars"

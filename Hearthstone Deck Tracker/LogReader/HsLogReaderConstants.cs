@@ -24,8 +24,9 @@ namespace Hearthstone_Deck_Tracker.LogReader
 		public static readonly Regex ExistingCardRegex = new Regex(@"Draft deck contains card (?<id>(\w+))");
 		public static readonly Regex NewChoiceRegex = new Regex(@"Client chooses: .* \((?<id>(.+))\)");
 		public static readonly Regex GameModeRegex = new Regex(@"prevMode=(?<prev>(\w+)).*currMode=(?<curr>(\w+))");
-		public static readonly Regex ConnectionRegex = new Regex(@"ConnectAPI\.GotoGameServer -- address=(?<address>(.*)), game=(?<game>(.*)), client=(?<client>(.*)), spectateKey=(?<spectateKey>(.*))");
+		public static readonly Regex ConnectionRegex = new Regex(@"ConnectAPI\.GotoGameServer -- address=(?<address>(.*)), game=(?<game>(.*)), client=(?<client>(.*)), spectateKey=(?<spectateKey>(.*)),? reconn");
 		public static readonly Regex LegendRankRegex = new Regex(@"legend rank (?<rank>(\d+))");
+		public static readonly Regex BeginBlurRegex = new Regex(@"BeginEffect blur \d => 1");
 
 		public static LogReaderInfo PowerLogReaderInfo => new LogReaderInfo
 		{
@@ -41,11 +42,12 @@ namespace Hearthstone_Deck_Tracker.LogReader
 		public static LogReaderInfo LoadingScreenLogReaderInfo => new LogReaderInfo {Name = "LoadingScreen", StartsWithFilters = new[] {"LoadingScreen.OnSceneLoaded"}};
 		public static LogReaderInfo NetLogReaderInfo => new LogReaderInfo {Name = "Net"};
 		public static LogReaderInfo GameStatePowerLogReaderInfo => new LogReaderInfo {Name = "Power", StartsWithFilters = new[] {"GameState."}};
+		public static LogReaderInfo FullScreenFxLogReaderInfo => new LogReaderInfo { Name = "FullScreenFX", Reset = false};
 
 		public static class GameState
 		{
-			public static readonly Regex ActionStartRegex =
-				new Regex(@".*ACTION_START.*id=(?<id>\d*).*(cardId=(?<Id>(\w*))).*BlockType=POWER.*Target=(?<target>(.+))");
+			public static readonly Regex BlockStartRegex =
+				new Regex(@".*BLOCK_START.*id=(?<id>\d*).*(cardId=(?<Id>(\w*))).*BlockType=POWER.*Target=(?<target>(.+))");
 
 			public static readonly Regex CardIdRegex = new Regex(@"cardId=(?<cardId>(\w+))");
 			public static readonly Regex CreationRegex = new Regex(@"FULL_ENTITY\ -\ Creating\ ID=(?<id>(\d+))\ CardID=(?<cardId>(\w*))");
@@ -71,8 +73,8 @@ namespace Hearthstone_Deck_Tracker.LogReader
 
 		public static class PowerTaskList
 		{
-			public static readonly Regex ActionStartRegex =
-				new Regex(@".*ACTION_START.*BlockType=(?<type>(POWER|TRIGGER)).*id=(?<id>\d*).*(cardId=(?<Id>(\w*))).*Target=(?<target>(.+))");
+			public static readonly Regex BlockStartRegex =
+				new Regex(@".*BLOCK_START.*BlockType=(?<type>(POWER|TRIGGER)).*id=(?<id>\d*).*(cardId=(?<Id>(\w*))).*Target=(?<target>(.+))");
 
 			public static readonly Regex CardIdRegex = new Regex(@"cardId=(?<cardId>(\w+))");
 			public static readonly Regex CreationRegex = new Regex(@"FULL_ENTITY - Updating.*id=(?<id>(\d+)).*zone=(?<zone>(\w+)).*CardID=(?<cardId>(\w*))");

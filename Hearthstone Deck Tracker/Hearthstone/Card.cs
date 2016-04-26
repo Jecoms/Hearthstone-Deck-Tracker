@@ -13,7 +13,6 @@ using Hearthstone_Deck_Tracker.Annotations;
 using Hearthstone_Deck_Tracker.Utility;
 using Hearthstone_Deck_Tracker.Utility.Logging;
 using Hearthstone_Deck_Tracker.Utility.Themes;
-using Rarity = Hearthstone_Deck_Tracker.Enums.Rarity;
 
 #endregion
 
@@ -32,10 +31,10 @@ namespace Hearthstone_Deck_Tracker.Hearthstone
 		private bool _isCreated;
 		private bool _loaded;
 		private string _localizedName;
-		private string _name;
 		private int? _overload;
 		private string _text;
 		private bool _wasDiscarded;
+		private string _id;
 
 		[NonSerialized]
 		private static readonly Dictionary<string, Dictionary<int, CardImageObject>> CardImageCache =
@@ -47,7 +46,16 @@ namespace Hearthstone_Deck_Tracker.Hearthstone
 		[XmlIgnore]
 		public List<string> AlternativeTexts = new List<string>();
 
-		public string Id;
+		public string Id
+		{
+			get { return _id; }
+			set
+			{
+				_id = value;
+				if(_dbCard == null)
+					Load();
+			}
+		}
 
 		/// The mechanics attribute, such as windfury or taunt, comes from the cardDB json file
 		[XmlIgnore]
@@ -115,7 +123,7 @@ namespace Hearthstone_Deck_Tracker.Hearthstone
 			Id = dbCard.Id;
 			Count = 1;
 			PlayerClass = HearthDbConverter.ConvertClass(dbCard.Class);
-			Rarity = HearthDbConverter.RariryConverter(dbCard.Rarity);
+			Rarity = dbCard.Rarity;
 			Type = HearthDbConverter.CardTypeConverter(dbCard.Type);
 			Name = dbCard.GetLocName(Language.enUS);
 			Cost = dbCard.Cost;
@@ -222,16 +230,7 @@ namespace Hearthstone_Deck_Tracker.Hearthstone
 		public string Type { get; set; }
 
 		[XmlIgnore]
-		public string Name
-		{
-			get
-			{
-				if(_name == null)
-					Load();
-				return _name;
-			}
-			set { _name = value; }
-		}
+		public string Name { get; set; }
 
 		[XmlIgnore]
 		public int Cost { get; set; }
@@ -262,13 +261,13 @@ namespace Hearthstone_Deck_Tracker.Hearthstone
 			{
 				switch(Rarity)
 				{
-					case Rarity.Common:
+					case Rarity.COMMON:
 						return 40;
-					case Rarity.Rare:
+					case Rarity.RARE:
 						return 100;
-					case Rarity.Epic:
+					case Rarity.EPIC:
 						return 400;
-					case Rarity.Legendary:
+					case Rarity.LEGENDARY:
 						return 1600;
 				}
 				return 0;
@@ -405,6 +404,9 @@ namespace Hearthstone_Deck_Tracker.Hearthstone
 		[XmlIgnore]
 		public string FormattedFlavorText => CleanUpText(_dbCard?.GetLocFlavorText(SelectedLanguage), false) ?? "";
 
+		[XmlIgnore]
+		public bool Collectible => _dbCard?.Collectible ?? false;
+
 		public object Clone() => new Card(Id, PlayerClass, Rarity, Type, Name, Cost, LocalizedName, InHandCount, Count, _text, EnglishText, Attack,
 										  Health, Race, Mechanics, Durability, Artist, Set, AlternativeNames, AlternativeTexts, _dbCard);
 
@@ -428,6 +430,8 @@ namespace Hearthstone_Deck_Tracker.Hearthstone
 				return;
 
 			var stats = Database.GetCardFromId(Id);
+			if(stats == null)
+				return;
 			PlayerClass = stats.PlayerClass;
 			Rarity = stats.Rarity;
 			Type = stats.Type;
@@ -455,7 +459,7 @@ namespace Hearthstone_Deck_Tracker.Hearthstone
 		{
 			if (replaceTags)
 				text = text?.Replace("<b>", "").Replace("</b>", "").Replace("<i>", "").Replace("</i>", "");
-			return text?.Replace("$", "").Replace("#", "").Replace("\\n", "\n");
+			return text?.Replace("$", "").Replace("#", "").Replace("\\n", "\n").Replace("[x]", "");
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;

@@ -31,8 +31,8 @@ namespace Hearthstone_Deck_Tracker.Hearthstone
 
 		public GameV2()
 		{
-			Player = new Player(true);
-			Opponent = new Player(false);
+			Player = new Player(this, true);
+			Opponent = new Player(this, false);
 			CurrentGameMode = GameMode.None;
 			IsInMenu = true;
 			PossibleArenaCards = new List<Card>();
@@ -77,6 +77,21 @@ namespace Hearthstone_Deck_Tracker.Hearthstone
 			{
 				_currentMode = value;
 				Log.Info(value.ToString());
+			}
+		}
+
+		public Format? CurrentFormat
+		{
+			get
+			{
+				if(CurrentGameMode != GameMode.Casual && CurrentGameMode != GameMode.Ranked)
+					return null;
+				if(DeckList.Instance.ActiveDeck?.IsArenaDeck ?? false)
+					return null;
+				if(!DeckList.Instance.ActiveDeck?.StandardViable ?? false)
+					return Format.Wild;
+				return Entities.Values.Where(x => !string.IsNullOrEmpty(x?.CardId) && !x.Info.Created && !string.IsNullOrEmpty(x.Card.Set))
+							.Any(x => Helper.WildOnlySets.Contains(x.Card.Set)) ? Format.Wild : Format.Standard;
 			}
 		}
 
@@ -147,8 +162,6 @@ namespace Hearthstone_Deck_Tracker.Hearthstone
 				Core.UpdateOpponentCards(true);
 			}
 		}
-
-		public void AddPlayToCurrentGame(PlayType play, int turn, string cardId) => CurrentGameStats?.AddPlay(play, turn, cardId);
 
 		public void ResetArenaCards() => PossibleArenaCards.Clear();
 

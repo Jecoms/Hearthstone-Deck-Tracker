@@ -76,6 +76,12 @@ namespace Hearthstone_Deck_Tracker
 		[DefaultValue(true)]
 		public bool ArenaStatsIncludeArchived = true;
 
+		[DefaultValue(1)]
+		public int ArenaStatsCustomSeasonMin = 1;
+
+		[DefaultValue(25)]
+		public int ArenaStatsCustomSeasonMax = 25;
+
 		[DefaultValue(71.67)]
 		public double AttackIconPlayerVerticalPosition = 71.67;
 
@@ -132,6 +138,78 @@ namespace Hearthstone_Deck_Tracker
 
 		[DefaultValue("dark")]
 		public string CardBarTheme = "dark";
+
+		[DefaultValue(true)]
+		public bool CardDbIncludeWildOnlyCards = true;
+
+		[DefaultValue(false)]
+		public bool ConstructedStatsAsPercent = false;
+
+		[DefaultValue(false)]
+		public bool ConstructedStatsApplyTagFilters = false;
+
+		[DefaultValue(true)]
+		public bool ConstructedSummaryChartsExpanded = true;
+
+		[DefaultValue(GameMode.All)]
+		public GameMode ConstructedStatsModeFilter = GameMode.All;
+
+		[DefaultValue(DisplayedTimeFrame.CurrentSeason)]
+		public DisplayedTimeFrame ConstructedStatsTimeFrameFilter = DisplayedTimeFrame.CurrentSeason;
+
+		[DefaultValue(HeroClassStatsFilter.All)]
+		public HeroClassStatsFilter ConstructedStatsClassFilter = HeroClassStatsFilter.All;
+
+		[DefaultValue(HeroClassStatsFilter.All)]
+		public HeroClassStatsFilter ConstructedStatsOpponentClassFilter = HeroClassStatsFilter.All;
+
+		[DefaultValue(RegionAll.ALL)]
+		public RegionAll ConstructedStatsRegionFilter = RegionAll.ALL;
+
+		[DefaultValue(Format.All)]
+		public Format ConstructedStatsFormatFilter = Format.All;
+
+		[DefaultValue(AllYesNo.All)]
+		public AllYesNo ConstructedStatsCoinFilter = AllYesNo.All;
+
+		[DefaultValue(GameResultAll.All)]
+		public GameResultAll ConstructedStatsResultFilter = GameResultAll.All;
+
+		[DefaultValue(null)]
+		public DateTime? ConstructedStatsTimeFrameCustomStart = null;
+
+		[DefaultValue(null)]
+		public DateTime? ConstructedStatsTimeFrameCustomEnd = null;
+
+		[DefaultValue(true)]
+		public bool ConstructedStatsIncludeArchived = true;
+
+		[DefaultValue("L1")]
+		public string ConstructedStatsRankFilterMin = "L1";
+
+		[DefaultValue("25")]
+		public string ConstructedStatsRankFilterMax = "25";
+
+		[DefaultValue(1)]
+		public int ConstructedStatsCustomSeasonMin = 1;
+
+		[DefaultValue(25)]
+		public int ConstructedStatsCustomSeasonMax = 25;
+
+		[DefaultValue(0)]
+		public int ConstructedStatsTurnsFilterMin = 0;
+
+		[DefaultValue(99)]
+		public int ConstructedStatsTurnsFilterMax = 99;
+
+		[DefaultValue("")]
+		public string ConstructedStatsOpponentNameFilter = "";
+
+		[DefaultValue("")]
+		public string ConstructedStatsNoteFilter = "";
+
+		[DefaultValue(false)]
+		public bool ConstructedStatsActiveDeckOnly = false;
 
 		[DefaultValue(true)]
 		public bool ClearLogFileAfterGame = true;
@@ -226,8 +304,8 @@ namespace Hearthstone_Deck_Tracker
 		[DefaultValue(0.067)]
 		public double ExportAllSetsButtonX = 0.067;
 
-		[DefaultValue(0.575)]
-		public double ExportAllSetsButtonY = 0.575;
+		[DefaultValue(0.45)]
+		public double ExportStandardSetButtonY = 0.45;
 
 		[DefaultValue(0.04)]
 		public double ExportCard1X = 0.04;
@@ -482,8 +560,8 @@ namespace Hearthstone_Deck_Tracker
 		[DefaultValue(0.5)]
 		public double OpponentDeckLeft = 0.5;
 
-		[DefaultValue(10)]
-		public double OpponentDeckTop = 10;
+		[DefaultValue(12.5)]
+		public double OpponentDeckTop = 12.5;
 
 		[DefaultValue(100)]
 		public double OpponentOpacity = 100;
@@ -702,7 +780,7 @@ namespace Hearthstone_Deck_Tracker
 		public string SelectedDeckSortingArena = "Name";
 
 		[DefaultValue(DeckType.All)]
-		public DeckType SelectedDeckType = DeckType.All;
+		public DeckType SelectedDeckPickerDeckType = DeckType.All;
 
 		[DefaultValue("enUS")]
 		public string SelectedLanguage = "enUS";
@@ -796,6 +874,9 @@ namespace Hearthstone_Deck_Tracker
 
 		[DefaultValue(false)]
 		public bool StartWithWindows = false;
+
+		[DefaultValue(true)]
+		public bool StatsAutoRefresh = true;
 
 		[DefaultValue(false)]
 		public bool StatsClassOverviewIsExpanded = false;

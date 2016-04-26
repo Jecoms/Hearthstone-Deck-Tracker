@@ -28,7 +28,7 @@ namespace Hearthstone_Deck_Tracker
 
 		private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
 		{
-			if(e.Exception is MissingMethodException || e.Exception is TypeLoadException)
+			if(e.Exception is MissingMethodException || e.Exception is MissingFieldException || e.Exception is MissingMemberException || e.Exception is TypeLoadException)
 			{
 				var plugin =
 					PluginManager.Instance.Plugins.FirstOrDefault(p => new FileInfo(p.FileName).Name.Replace(".dll", "") == e.Exception.Source);
@@ -61,7 +61,7 @@ namespace Hearthstone_Deck_Tracker
 				}
 
 				MessageBox.Show(e.Exception.Message + "\n\n" + "A crash report file was created at:\n\"" + Environment.CurrentDirectory + "\\" + fileName
-								+ ".txt\"\n\nPlease \na) create an issue on github (https://github.com/Epix37/Hearthstone-Deck-Tracker) \nor \nb) send an email to support@hsdecktracker.net.\n\nPlease include the generated crash report(s) and a short explanation of what lead to the crash.",
+								+ ".txt\"\n\nPlease \na) create an issue on github (https://github.com/HearthSim/Hearthstone-Deck-Tracker) \nor \nb) send an email to support@hsdecktracker.net.\n\nPlease include the generated crash report(s) and a short explanation of what lead to the crash.",
 								"Oops! Something went wrong.", MessageBoxButton.OK, MessageBoxImage.Error);
 #endif
 			}
