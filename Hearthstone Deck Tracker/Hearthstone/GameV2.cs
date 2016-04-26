@@ -13,6 +13,7 @@ using Hearthstone_Deck_Tracker.Stats;
 using Hearthstone_Deck_Tracker.Utility.Logging;
 using Hearthstone_Deck_Tracker.Windows;
 using MahApps.Metro.Controls.Dialogs;
+using HearthDb.Enums;
 
 #endregion
 
@@ -90,7 +91,7 @@ namespace Hearthstone_Deck_Tracker.Hearthstone
 					return null;
 				if(!DeckList.Instance.ActiveDeck?.StandardViable ?? false)
 					return Format.Wild;
-				return Entities.Values.Where(x => !string.IsNullOrEmpty(x?.CardId) && !x.Info.Created && !string.IsNullOrEmpty(x.Card.Set))
+				return Entities.Values.Where(x => !string.IsNullOrEmpty(x?.CardId) && !x.Info.Created && x.Card.Set != CardSet.NONE)
 							.Any(x => Helper.WildOnlySets.Contains(x.Card.Set)) ? Format.Wild : Format.Standard;
 			}
 		}
