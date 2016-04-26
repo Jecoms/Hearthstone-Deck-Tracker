@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Hearthstone_Deck_Tracker.Enums;
 using Hearthstone_Deck_Tracker.Hearthstone;
+using HearthDb.Enums;
 
 #endregion
 
@@ -23,7 +24,7 @@ namespace Hearthstone_Deck_Tracker.Controls.Stats
 		                                                                       typeof(ArenaRewards));
 
 		private readonly Dictionary<object, string> _invalidFields = new Dictionary<object, string>();
-		private readonly string[] _validSets = {"Classic", "Goblins vs Gnomes", "The Grand Tournament"};
+		private readonly CardSet[] _validSets = {CardSet.EXPERT1, CardSet.PE1, CardSet.TGT, CardSet.OG};
 		private List<string> _cardNames;
 		private bool _deletingSelection;
 

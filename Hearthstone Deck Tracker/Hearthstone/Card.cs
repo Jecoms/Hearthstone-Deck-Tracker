@@ -74,7 +74,7 @@ namespace Hearthstone_Deck_Tracker.Hearthstone
 
 		public Card(string id, string playerClass, Rarity rarity, string type, string name, int cost, string localizedName, int inHandCount,
 		            int count, string text, string englishText, int attack, int health, string race, string[] mechanics, int? durability,
-		            string artist, string set, List<string> alternativeNames = null, List<string> alternativeTexts = null, HearthDb.Card dbCard = null)
+		            string artist, CardSet set, List<string> alternativeNames = null, List<string> alternativeTexts = null, HearthDb.Card dbCard = null)
 		{
 			Id = id;
 			PlayerClass = playerClass;
@@ -136,7 +136,7 @@ namespace Hearthstone_Deck_Tracker.Hearthstone
 			Durability = dbCard.Durability > 0 ? (int?)dbCard.Durability : null;
 			Mechanics = dbCard.Mechanics;
 			Artist = dbCard.ArtistName;
-			Set = HearthDbConverter.SetConverter(dbCard.Set);
+			Set = dbCard.Set;
 			foreach(var altLangStr in Config.Instance.AlternativeLanguages)
 			{
 				Language altLang;
@@ -212,7 +212,7 @@ namespace Hearthstone_Deck_Tracker.Hearthstone
 		public Visibility ShowIconsInTooltip => Type == "Spell" || Type == "Enchantment" || Type == "Hero Power" ? Visibility.Hidden : Visibility.Visible;
 
 		[XmlIgnore]
-		public string Set { get; set; }
+		public CardSet Set { get; set; }
 
 		[XmlIgnore]
 		public string Race { get; set; }

@@ -10,27 +10,6 @@ namespace Hearthstone_Deck_Tracker.Hearthstone
 {
 	public static class HearthDbConverter
 	{
-		public static readonly Dictionary<int, string> SetDict = new Dictionary<int, string>
-		{
-			{0, null},
-			{2, "Basic"},
-			{3, "Classic"},
-			{4, "Reward"},
-			{5, "Missions"},
-			{7, "System"},
-			{8, "Debug"},
-			{11, "Promotion"},
-			{12, "Curse of Naxxramas"},
-			{13, "Goblins vs Gnomes"},
-			{14, "Blackrock Mountain"},
-			{15, "The Grand Tournament"},
-			{16, "Credits"},
-			{17, "Hero Skins"},
-			{18, "Tavern Brawl"},
-			{20, "League of Explorers"},
-			{21, "Whispers of the Old Gods"}
-		};
-
 		public static string ConvertClass(CardClass cardClass) => (int)cardClass < 2 || (int)cardClass > 10
 																	  ? null : CultureInfo.InvariantCulture.TextInfo.ToTitleCase(cardClass.ToString().ToLowerInvariant());
 
@@ -52,11 +31,17 @@ namespace Hearthstone_Deck_Tracker.Hearthstone
 			}
 		}
 
-		public static string SetConverter(CardSet set)
+		public static Dictionary<string, CardSet> UISetStringToCardSet = new Dictionary<string, CardSet>()
 		{
-			string str;
-			SetDict.TryGetValue((int)set, out str);
-			return str;
-		}
+			{ "BASIC", CardSet.CORE },
+			{ "CLASSIC", CardSet.EXPERT1 },
+			{ "PROMOTION", CardSet.PROMO },
+			{ "CURSE OF NAXXRAMAS", CardSet.FP1 },
+			{ "GOBLINS VS GNOMES", CardSet.PE1 },
+			{ "BLACKROCK MOUNTAIN", CardSet.BRM },
+			{ "THE GRAND TOURNAMENT", CardSet.TGT },
+			{ "LEAGUE OF EXPLORERS", CardSet.LOE },
+			{ "WHISPERS OF THE OLD GODS", CardSet.OG },
+		};
 	}
 }

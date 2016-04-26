@@ -93,7 +93,7 @@ namespace Hearthstone_Deck_Tracker.Windows
 					// mana filter
 					if(selectedManaCost != "ALL" && ((selectedManaCost != "9+" || card.Cost < 9) && (selectedManaCost != card.Cost.ToString())))
 						continue;
-					if(selectedSet != "ALL" && !string.Equals(selectedSet, card.Set, StringComparison.InvariantCultureIgnoreCase))
+					if (selectedSet != "ALL" && HearthDbConverter.UISetStringToCardSet[selectedSet] != card.Set)
 						continue;
 					if(!(CheckBoxIncludeWild.IsChecked ?? true) && Helper.WildOnlySets.Contains(card.Set))
 						continue;
@@ -306,12 +306,12 @@ namespace Hearthstone_Deck_Tracker.Windows
 
 		private void UpdateExpansionIcons()
 		{
-			RectIconOg.Visibility = _newDeck?.ContainsSet("Whispers of the Old Gods") ?? false ? Visible : Collapsed;
-			RectIconLoe.Visibility = _newDeck?.ContainsSet("League of Explorers") ?? false ? Visible : Collapsed;
-			RectIconTgt.Visibility = _newDeck?.ContainsSet("The Grand Tournament") ?? false ? Visible : Collapsed;
-			RectIconBrm.Visibility = _newDeck?.ContainsSet("Blackrock Mountain") ?? false ? Visible : Collapsed;
-			RectIconGvg.Visibility = _newDeck?.ContainsSet("Goblins vs Gnomes") ?? false ? Visible : Collapsed;
-			RectIconNaxx.Visibility = _newDeck?.ContainsSet("Curse of Naxxramas") ?? false ? Visible : Collapsed;
+			RectIconOg.Visibility = _newDeck?.ContainsSet(CardSet.OG) ?? false ? Visible : Collapsed;
+			RectIconLoe.Visibility = _newDeck?.ContainsSet(CardSet.LOE) ?? false ? Visible : Collapsed;
+			RectIconTgt.Visibility = _newDeck?.ContainsSet(CardSet.TGT) ?? false ? Visible : Collapsed;
+			RectIconBrm.Visibility = _newDeck?.ContainsSet(CardSet.BRM) ?? false ? Visible : Collapsed;
+			RectIconGvg.Visibility = _newDeck?.ContainsSet(CardSet.PE1) ?? false ? Visible : Collapsed;
+			RectIconNaxx.Visibility = _newDeck?.ContainsSet(CardSet.FP1) ?? false ? Visible : Collapsed;
 		}
 
 		private void UpdateCardCount()
